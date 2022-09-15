@@ -255,6 +255,6 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         add_git_labels: true
         target: ${{ matrix.target }}
-        repository: snyk/snyk
+        repository: swinton/snyk
         tags: ${{ matrix.tag }}
         build_args: IMAGE=${{ matrix.base }},TAG=${{ matrix.tag }}
