@@ -265,4 +265,6 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-        build-args: IMAGE=${{ matrix.base }},TAG=${{ matrix.tag }}
+        build-args: |
+          IMAGE=${{ matrix.base }}
+          TAG=${{ matrix.tag }}
