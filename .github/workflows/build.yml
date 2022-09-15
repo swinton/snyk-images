@@ -247,7 +247,7 @@ jobs:
             target: alpine
     steps:
     - uses: actions/checkout@v2
-    - uses: docker/build-push-action@v1
+    - uses: docker/build-push-action@v3
       env:
         DOCKER_BUILDKIT: "1"
       with:
