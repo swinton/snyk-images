@@ -14,10 +14,10 @@ CMD ["snyk", "test"]
 
 FROM ubuntu as snyk
 RUN apt-get update && apt-get install -y curl
-RUN curl -o ./snyk-linux https://static.snyk.io/cli/latest/snyk-linux && \
-    curl -o ./snyk-linux.sha256 https://static.snyk.io/cli/latest/snyk-linux.sha256 && \
-    sha256sum -c snyk-linux.sha256 && \
-    mv snyk-linux /usr/local/bin/snyk && \
+RUN curl -o ./snyk-linux-arm64 https://static.snyk.io/cli/latest/snyk-linux-arm64 && \
+    curl -o ./snyk-linux-arm64.sha256 https://static.snyk.io/cli/latest/snyk-linux-arm64.sha256 && \
+    sha256sum -c snyk-linux-arm64.sha256 && \
+    mv snyk-linux-arm64 /usr/local/bin/snyk && \
     chmod +x /usr/local/bin/snyk
 
 FROM alpine as snyk-alpine
