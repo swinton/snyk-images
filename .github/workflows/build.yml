@@ -267,8 +267,6 @@ jobs:
 
     # build-push: to build and push Docker images with Buildx
     - uses: docker/build-push-action@v3
-      env:
-        DOCKER_BUILDKIT: "1"
       with:
         target: ${{ matrix.target }}
         push: true
