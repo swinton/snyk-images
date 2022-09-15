@@ -251,7 +251,8 @@ jobs:
     - id: meta
       uses: docker/metadata-action@v4
       with:
-        images: swinton/snyk:${{ matrix.tag }}
+        images: swinton/snyk
+        tags: ${{ matrix.tag }}
     - uses: docker/login-action@v2
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
