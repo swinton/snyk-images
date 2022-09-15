@@ -247,8 +247,8 @@ jobs:
             target: alpine
     steps:
     # setup-buildx: to build multi-platform images
-
     - uses: docker/setup-buildx-action@v2
+
     # setup-qemu: to add emulation support with QEMU to be able to build against more platforms
     - uses: docker/setup-qemu-action@v2
 
@@ -269,6 +269,7 @@ jobs:
     - uses: docker/build-push-action@v3
       with:
         target: ${{ matrix.target }}
+        platforms: linux/amd64,linux/arm64
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
