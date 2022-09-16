@@ -13,6 +13,7 @@ CMD ["snyk", "test"]
 
 
 FROM ubuntu as snyk
+RUN echo "I am running on $BUILDPLATFORM, building for $TARGETPLATFORM"
 RUN apt-get update && apt-get install -y curl
 RUN curl -o ./snyk-linux-arm64 https://static.snyk.io/cli/latest/snyk-linux-arm64 && \
     curl -o ./snyk-linux-arm64.sha256 https://static.snyk.io/cli/latest/snyk-linux-arm64.sha256 && \
