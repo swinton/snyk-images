@@ -246,15 +246,33 @@ jobs:
             tag: ruby-alpine
             target: alpine
     steps:
-    - uses: actions/checkout@v2
-    - uses: docker/build-push-action@v1
-      env:
-        DOCKER_BUILDKIT: "1"
+    # setup-buildx: to build multi-platform images
+    - uses: docker/setup-buildx-action@v2
+
+    # setup-qemu: to add emulation support with QEMU to be able to build against more platforms
+    - uses: docker/setup-qemu-action@v2
+
+    # metadata: extract metadata (tags, labels) from Git reference
+    - id: meta
+      uses: docker/metadata-action@v4
+      with:
+        images: swinton/snyk
+        tags: ${{ matrix.tag }}
+
+    # login: to login against a Docker registry
+    - uses: docker/login-action@v2
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        add_git_labels: true
+
+    # build-push: to build and push Docker images with Buildx
+    - uses: docker/build-push-action@v3
+      with:
         target: ${{ matrix.target }}
-        repository: snyk/snyk
-        tags: ${{ matrix.tag }}
-        build_args: IMAGE=${{ matrix.base }},TAG=${{ matrix.tag }}
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        build-args: |
+          IMAGE=${{ matrix.base }}
+          TAG=${{ matrix.tag }}
